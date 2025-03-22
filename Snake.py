@@ -60,6 +60,8 @@ while running: # Solange das Spiel läuft wird alles in der Schleife wiederholt
     # Spiel beenden, wenn Snake die Wand berührt
     if x >= width or x < 0 or y >= height or y < 0: # Checkt ob die Schlange (Kopf) den Rand des Bildschirms berührt  
         running = False # setzt variable Running auf False
+    if (x, y) in snake_body[:-1]: # Checkt ob die schlange sich selbst berührt
+        running = False # setzt variable Running auf False
 
     # Snake wächst, wenn sie das Futter isst
     snake_body.append((x, y)) # setzt neues Schlangen segment auf die neue x und y possition (geändert durch x_change und y_change)
@@ -73,7 +75,7 @@ while running: # Solange das Spiel läuft wird alles in der Schleife wiederholt
 
     # Snake Körper zeichnen
     screen.fill(black) # macht den Bildschirm Schwarz farbe wurde oben definiert
-    screen.blit(text, (200, 150))
+    screen.blit(text, (10, 0)) # positioniert 
     for segment in snake_body: # für jedes segment wird etwas in der Schlange geändert (beispiel 3 segmente: snake_body = [(100, 100), (110, 100), (120, 100)])
         pygame.draw.rect(screen, green, (segment[0], segment[1], snake_block, snake_block)) # bildschirm wird grün gefärbt wo segment position 1(0) und segment position 2(1) ist breite höhe deffiniert durch snake_block(10) 
 
