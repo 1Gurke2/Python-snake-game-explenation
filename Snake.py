@@ -2,7 +2,11 @@ import pygame
 import random
 
 # Pygame initialisieren
-pygame.init()
+pygame.init() # startet pygame
+
+score = 0 # deffiniert die variable score
+my_font = pygame.font.SysFont('Comic Sans MS', 30) # Schrifft wird gesetzt Font und Größe
+text = my_font.render('Score: ' + str(score), True, (255, 255, 255)) # Schrift wird als Variable text gespeichert und ist weiß und sagt Score: und dan die variable!  
 
 # Fenstergröße und Farben definieren
 width, height = 600, 400 # Setzt die Größe der Variablen für die Map fest
@@ -62,11 +66,14 @@ while running: # Solange das Spiel läuft wird alles in der Schleife wiederholt
     if (x, y) == (food_x, food_y): # checkt ob die Kordinaten des Schlangenkopfs und die des essens gleich sind
         food_x = random.randrange(0, width, snake_block) # setzt einen random x wert für das essen welcher zwischen 0 und der width 600 liegt
         food_y = random.randrange(0, height, snake_block) # setzt einen random y wert für das essen welcher zwischen 0 und der height 400 liegt
+        score += 1 # ändert den score um 1 nach oben
+        text = my_font.render('Score: ' + str(score), True, (255, 255, 255)) # Schrift wird als Variable text gespeichert und ist weiß und sagt Score: und dan die variable!  
     else:
         snake_body.pop(0) # Entfernt das erste Segment der Snake, wenn es das Futter nicht isst
 
     # Snake Körper zeichnen
-    screen.fill(black) # macht den Bildschirm Schwarz farbe wurde oben definiert 
+    screen.fill(black) # macht den Bildschirm Schwarz farbe wurde oben definiert
+    screen.blit(text, (200, 150))
     for segment in snake_body: # für jedes segment wird etwas in der Schlange geändert (beispiel 3 segmente: snake_body = [(100, 100), (110, 100), (120, 100)])
         pygame.draw.rect(screen, green, (segment[0], segment[1], snake_block, snake_block)) # bildschirm wird grün gefärbt wo segment position 1(0) und segment position 2(1) ist breite höhe deffiniert durch snake_block(10) 
 

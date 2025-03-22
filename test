@@ -1,0 +1,28 @@
+
+import pygame
+pygame.init()
+
+# Bildschirm erstellen
+screen = pygame.display.set_mode((600, 400))
+
+# Schriftart erstellen
+my_font = pygame.font.SysFont('Comic Sans MS', 30)
+
+# Text rendern
+text = my_font.render('Hallo Welt!', True, (255, 255, 255))  # Weißer Text
+
+# Text auf dem Bildschirm anzeigen
+screen.fill((0, 0, 0))  # Bildschirm mit schwarzer Farbe füllen
+screen.blit(text, (200, 150))  # Text an der Position (200, 150) auf dem Bildschirm anzeigen
+
+# Bildschirm aktualisieren
+pygame.display.update()
+
+# Event-Schleife (damit das Fenster offen bleibt)
+running = True
+while running:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            running = False
+
+pygame.quit()
