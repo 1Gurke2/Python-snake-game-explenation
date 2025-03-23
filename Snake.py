@@ -71,7 +71,7 @@ while running: # Solange das Spiel läuft wird alles in der Schleife wiederholt
         score += 1 # ändert den score um 1 nach oben
         text = my_font.render('Score: ' + str(score), True, (255, 255, 255)) # Schrift wird als Variable text gespeichert und ist weiß und sagt Score: und dan die variable!  
     else:
-        snake_body.pop(0) # Entfernt das erste Segment der Snake, wenn es das Futter nicht isst
+        snake_body.pop(0) # Entfernt das letzte Segment der Snake, wenn es das Futter nicht isst und weiter geht
 
     # Snake Körper zeichnen
     screen.fill(black) # macht den Bildschirm Schwarz farbe wurde oben definiert
