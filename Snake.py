@@ -16,18 +16,18 @@ screen = pygame.display.set_mode((width, height)) # Setzt die Größe für die M
 clock = pygame.time.Clock() 
 
 snake_block = 10 # Variable setzt Größe eines Schlangen Segments fest
-snake_speed = 15 # Variable setzt Ticks für später fest
+snake_speed = 10 # Variable setzt Ticks für später fest
 
 def vergleich(): # deffiniert den code alls funktion
     if score > score2: # falls grün mehr punkte hat
-        text = my_font.render('Green Wins', True, (255, 255, 255)) # prepariert den text
+        text = my_font.render('Green Wins', True, (0, 255, 0)) # prepariert den text
         screen.blit(text, (225, 200)) # setzt den text ins display
         pygame.display.update() # updatet das display so das der text angezeigt wird
         time.sleep(2.5) # wartet 2.5 sekunden
         pygame.quit() # Schließt das Fenster
         running = False # setzt variable Running auf False
     elif score2 > score: # falls blau mehr punkte hat
-        text = my_font.render('Blue Wins', True, (255, 255, 255)) # prepariert den text
+        text = my_font.render('Blue Wins', True, (0, 0, 255)) # prepariert den text
         screen.blit(text, (225, 200)) # setzt den text ins display
         pygame.display.update() # updatet das display so das der text angezeigt wird
         time.sleep(2.5) # wartet 2.5 sekunden
@@ -42,7 +42,7 @@ def vergleich(): # deffiniert den code alls funktion
         running = False # setzt variable Running auf False
 
 def bluewin():
-        text = my_font.render('Blue Wins', True, (255, 255, 255)) # prepariert den text
+        text = my_font.render('Blue Wins', True, (0, 0, 255)) # prepariert den text
         screen.blit(text, (225, 200)) # setzt den text ins display
         pygame.display.update() # updatet das display so das der text angezeigt wird
         time.sleep(2.5) # wartet 2.5 sekunden
@@ -50,7 +50,7 @@ def bluewin():
         running = False # setzt variable Running auf False
 
 def greenwin():
-        text = my_font.render('Green Wins', True, (255, 255, 255)) # prepariert den text
+        text = my_font.render('Green Wins', True, (0, 255, 0)) # prepariert den text
         screen.blit(text, (225, 200)) # setzt den text ins display
         pygame.display.update() # updatet das display so das der text angezeigt wird
         time.sleep(2.5) # wartet 2.5 sekunden
@@ -71,7 +71,7 @@ y_change = 0 # y_change ist auf 0 so schlange bewegt sich nicht auf der y Achse
 
 x2 = width // 2 - 10
 y2 = height // 2 
-x_change2 = 0 
+x_change2 = 0
 y_change2 = 0 
 
 # Snake Körper
@@ -82,6 +82,12 @@ snake_body2 = [(x, y)]
 food_x = random.randrange(0, width, snake_block) # setzt einen random x wert für das essen welcher zwischen 0 und der width 600 liegt
 food_y = random.randrange(0, height, snake_block) # setzt einen random y wert für das essen welcher zwischen 0 und der height 400 liegt
 
+next_x_change = 0 
+next_y_change = 0
+
+next_x_change2 = 0
+next_y_change2 = 0
+
 # Spiel Schleife
 running = True # setzt running auf True
 while running: # Solange das Spiel läuft wird alles in der Schleife wiederholt
@@ -89,31 +95,31 @@ while running: # Solange das Spiel läuft wird alles in der Schleife wiederholt
         if event.type == pygame.QUIT: # fals das event quit ist ist (schließen des Fensters)
             running = False # setzt variable Running auf False
         if event.type == pygame.KEYDOWN: # fals das event das drücken einer Taste ist ist
-            if event.key == pygame.K_LEFT and x_change == 0: # fals die Taste Linkerpfeil ist und x_change 0 ist also die schlange sich nicht auf der x Achse bewegt
-                x_change = -snake_block # x_change wird auf -snake_block(10) gesetzt (-10 = Links 10 = rechts)
-                y_change = 0 # y_change wird auf 0 gesetzt 
+            if event.key == pygame.K_LEFT and x_change == 0: # checkt ob die taste linke pfeiltaste ist
+                next_x_change = -snake_block # ändert die wariable zu x -10 also nach links
+                next_y_change = 0 # ändert so das y nicht geändert wird
             elif event.key == pygame.K_RIGHT and x_change == 0:
-                x_change = snake_block
-                y_change = 0
-            elif event.key == pygame.K_UP and y_change == 0: # fals die Taste Pfeil nach oben ist und y_change 0 ist also die schlange sich nicht auf der y Achse bewegt
-                y_change = -snake_block # y_change wird auf -snake_block(10) gesetzt (-10 = oben 10 = unten)
-                x_change = 0 # x_change wird auf 0 gesetzt 
+                next_x_change = snake_block
+                next_y_change = 0
+            elif event.key == pygame.K_UP and y_change == 0:
+                next_y_change = -snake_block
+                next_x_change = 0
             elif event.key == pygame.K_DOWN and y_change == 0:
-                y_change = snake_block
-                x_change = 0
+                next_y_change = snake_block
+                next_x_change = 0
             
-            elif event.key == pygame.K_a and x_change2 == 0: # fals die Taste Linkerpfeil ist und x_change 0 ist also die schlange sich nicht auf der x Achse bewegt
-                x_change2 = -snake_block # x_change wird auf -snake_block(10) gesetzt (-10 = Links 10 = rechts)
-                y_change2 = 0 # y_change wird auf 0 gesetzt 
+            elif event.key == pygame.K_a and x_change2 == 0:
+                next_x_change2 = -snake_block
+                next_y_change2 = 0
             elif event.key == pygame.K_d and x_change2 == 0:
-                x_change2 = snake_block
-                y_change2 = 0
-            elif event.key == pygame.K_w and y_change2 == 0: # fals die Taste Pfeil nach oben ist und y_change 0 ist also die schlange sich nicht auf der y Achse bewegt
-                y_change2 = -snake_block # y_change wird auf -snake_block(10) gesetzt (-10 = oben 10 = unten)
-                x_change2 = 0 # x_change wird auf 0 gesetzt 
+                next_x_change2 = snake_block
+                next_y_change2 = 0
+            elif event.key == pygame.K_w and y_change2 == 0:
+                next_y_change2 = -snake_block
+                next_x_change2 = 0
             elif event.key == pygame.K_s and y_change2 == 0:
-                y_change2 = snake_block
-                x_change2 = 0
+                next_y_change2 = snake_block
+                next_x_change2 = 0
 
     x += x_change # Die x Variable wird um x_change erhöt/veringert was durch Pfeiltaste Rechts/Links geändert werden kann
     y += y_change # Die y Variable wird um y_change erhöt/veringert was durch Pfeiltaste Oben/Unten geändert werden kann
@@ -121,7 +127,13 @@ while running: # Solange das Spiel läuft wird alles in der Schleife wiederholt
     x2 += x_change2 # Die x Variable wird um x_change erhöt/veringert was durch Pfeiltaste Rechts/Links geändert werden kann
     y2 += y_change2 # Die y Variable wird um y_change erhöt/veringert was durch Pfeiltaste Oben/Unten geändert werden kann
 
-    # Spiel beenden, wenn Snake die Wand berührt
+    x_change = next_x_change # macht das x_change sich erst nach einem frame ändert so kann man nicht in sich selber fahren
+    y_change = next_y_change
+
+    x_change2 = next_x_change2
+    y_change2 = next_y_change2
+
+    # Spiel beenden, wenn Snake die Wand berührt sich selber oder die andere schlange berührt
     if x >= width or x < 0 or y >= height or y < 0: # Checkt ob die Schlange (Kopf) den Rand des Bildschirms berührt
         bluewin() # call zur funktion bluwin oben deffiniert
     if (x, y) in snake_body[:-1]: # Checkt ob die schlange sich selbst berührt
@@ -140,6 +152,7 @@ while running: # Solange das Spiel läuft wird alles in der Schleife wiederholt
     # Snake wächst, wenn sie das Futter isst
     snake_body.append((x, y)) # setzt neues Schlangen segment auf die neue x und y possition (geändert durch x_change und y_change)
     snake_body2.append((x2, y2))
+
     if (x, y) == (food_x, food_y): # checkt ob die Kordinaten des Schlangenkopfs und die des essens gleich sind
         food_x = random.randrange(0, width, snake_block) # setzt einen random x wert für das essen welcher zwischen 0 und der width 600 liegt
         food_y = random.randrange(0, height, snake_block) # setzt einen random y wert für das essen welcher zwischen 0 und der height 400 liegt
